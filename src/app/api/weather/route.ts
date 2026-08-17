@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { getWeather } from "@/lib/weather";
 
-// Same-origin proxy to IPMA — keeps the browser widget free of CORS concerns
-// and lets Next cache the upstream response for the whole site.
-// Must be a static literal for Next's segment-config analysis (matches
-// WEATHER_REVALIDATE in @/lib/weather).
-export const revalidate = 900;
+// Dynamic on purpose: never bake a build-time (possibly null / key-not-yet-
+// active) snapshot into a static file. The route runs per request and computes
+// the critical-period flag fresh; the upstream OpenWeather/IPMA calls are still
+// cached ~15 min via their own fetch revalidate, and the response is edge-cached
+// by the Cache-Control header below.
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   const weather = await getWeather();
