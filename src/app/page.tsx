@@ -12,7 +12,6 @@ import { Reveal } from "@/components/reveal";
 import { StatCounter } from "@/components/stat-counter";
 import { Gallery } from "@/components/gallery";
 import { ContactForm } from "@/components/contact-form";
-import { LavaShader } from "@/components/lava-shader";
 
 type Servico = { _id: string; title: string; summary?: string };
 type Noticia = { _id: string; title: string; slug: string; date?: string; excerpt?: string };
@@ -349,8 +348,6 @@ export default async function Home() {
               "radial-gradient(120% 85% at 50% 0%, rgba(230,23,23,0.5) 0%, rgba(230,23,23,0) 55%), linear-gradient(180deg, rgba(230,23,23,0.22) 0%, rgba(23,23,23,0) 52%)",
           }}
         />
-        {/* shader de lava muito soft, por cima do gradiente */}
-        <LavaShader className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-40 mix-blend-screen [mask-image:radial-gradient(120%_90%_at_50%_10%,#000_0%,transparent_75%)] [-webkit-mask-image:radial-gradient(120%_90%_at_50%_10%,#000_0%,transparent_75%)]" />
         <div className="container-page grid gap-6 py-24 text-center md:py-32">
           <Reveal>
             <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-display md:text-5xl">
