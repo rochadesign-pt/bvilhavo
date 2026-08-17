@@ -5,21 +5,38 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { site } from "@/content/site";
 import type { Weather } from "@/lib/weather";
 import { WeatherPanel } from "@/components/weather-panel";
+import { ThermometerIcon, WarningIcon } from "@/components/weather-icons";
 
 const EASE = [0.25, 1, 0.5, 1] as const;
 
-// Risk-level → small dot colour (desktop chip) + mobile strip styling.
-const DOT = ["bg-emerald-400", "bg-amber-300", "bg-orange-400", "bg-red-400"];
-const STRIP: Record<number, string> = {
-  2: "bg-orange-500 text-white",
-  3: "bg-red-600 text-white",
-};
+// Light dot cores so they stay visible on the brand-red bar.
+const DOT = ["bg-emerald-300", "bg-amber-300", "bg-orange-200", "bg-red-200"];
+
+// A risk dot that emits a radar "ping" when the risk is high, so people
+// actually notice it. Falls back to a static dot under reduced motion.
+function RiskDot({ level, pulse }: { level: number; pulse: boolean }) {
+  const color = DOT[level] ?? DOT[0];
+  return (
+    <span className="relative ml-0.5 inline-flex h-2 w-2">
+      {pulse && (
+        <motion.span
+          aria-hidden
+          className={`absolute inset-0 rounded-full ${color}`}
+          initial={{ scale: 1, opacity: 0.6 }}
+          animate={{ scale: 2.6, opacity: 0 }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+        />
+      )}
+      <span className={`relative inline-flex h-2 w-2 rounded-full ${color}`} />
+    </span>
+  );
+}
 
 // Full-width red bar at the very top. Left: emergency call-out (centred on
-// mobile). Right (desktop): a live weather chip from OpenWeather that expands,
-// on hover/focus, into the fire-risk panel. On mobile — where the chip is
-// hidden to keep the call-out centred — an active fire-risk (Elevado+) surfaces
-// as a tappable strip below the bar, so the alert still reaches touch users.
+// mobile). Right (desktop): a live weather chip that expands, on hover/focus,
+// into the fire-risk panel. On mobile — where the chip is hidden to keep the
+// call-out centred — an active fire risk or the burning ban surfaces as a
+// tappable strip below the bar.
 export function EmergencyBar() {
   const tel = `tel:+351${site.phones.emergency.replace(/\s/g, "")}`;
   const reduce = useReducedMotion();
@@ -41,7 +58,21 @@ export function EmergencyBar() {
 
   const hasData = weather?.temp != null;
   const risk = weather?.risk ?? null;
-  const showStrip = !!risk && risk.level >= 2;
+  const critical = !!weather?.criticalPeriod;
+  const highRisk = !!risk && risk.level >= 2;
+  const pulse = !reduce && highRisk;
+
+  // Mobile strip: urgent when high risk, otherwise a calm ban reminder.
+  const stripVariant =
+    risk && risk.level >= 3
+      ? "bg-red-600 text-white"
+      : risk && risk.level >= 2
+        ? "bg-orange-500 text-white"
+        : "bg-amber-100 text-amber-900";
+  const stripLabel = highRisk
+    ? `Risco de incêndio ${risk!.label}`
+    : "Período crítico — queimadas proibidas";
+  const showStrip = highRisk || critical;
 
   const panelMotion = {
     initial: { opacity: 0, y: reduce ? 0 : -6, scale: reduce ? 1 : 0.98 },
@@ -73,26 +104,21 @@ export function EmergencyBar() {
                 aria-expanded={open}
                 aria-label="Ver meteorologia e risco de incêndio em Ílhavo"
                 onClick={() => setOpen((v) => !v)}
-                onFocus={() => setOpen(true)}
-                className="flex items-center gap-2 rounded-full px-1 text-on-brand/90 outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                onFocusCapture={() => setOpen(true)}
+                className="flex items-center gap-1.5 rounded-full px-1 text-on-brand/90 outline-none focus-visible:ring-2 focus-visible:ring-white/60"
               >
                 <span className="font-medium">Ílhavo</span>
                 <span aria-hidden>·</span>
-                <span aria-hidden>🌡</span>
+                <ThermometerIcon className="h-3.5 w-3.5" />
                 <span>{weather!.temp}°C</span>
-                {risk && risk.level >= 1 && (
-                  <span
-                    aria-hidden
-                    className={`ml-0.5 h-2 w-2 rounded-full ${DOT[risk.level]}`}
-                  />
-                )}
+                {risk && <RiskDot level={risk.level} pulse={pulse} />}
               </button>
             ) : (
               <span className="font-medium text-on-brand/90">Ílhavo</span>
             )}
 
             <AnimatePresence>
-              {open && hasData && weather && (
+              {open && weather && (hasData || showStrip) && (
                 <motion.div
                   {...panelMotion}
                   role="dialog"
@@ -108,17 +134,28 @@ export function EmergencyBar() {
         </div>
       </div>
 
-      {/* Mobile fire-risk strip (Elevado/Extremo) — tap to expand */}
-      {showStrip && risk && (
-        <div className={`sm:hidden ${STRIP[risk.level]}`}>
+      {/* Mobile strip — tap to expand the same panel */}
+      {showStrip && (
+        <div className={`sm:hidden ${stripVariant}`}>
           <button
             type="button"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
             className="container-wide flex w-full items-center justify-center gap-2 py-2 text-center text-sm font-medium"
           >
-            <span aria-hidden>⚠</span>
-            <span className="font-semibold">Risco de incêndio {risk.label}</span>
+            <motion.span
+              aria-hidden
+              className="inline-flex"
+              animate={pulse ? { opacity: [1, 0.35, 1] } : { opacity: 1 }}
+              transition={
+                pulse
+                  ? { duration: 1.4, repeat: Infinity, ease: "easeInOut" }
+                  : { duration: 0 }
+              }
+            >
+              <WarningIcon className="h-4 w-4" />
+            </motion.span>
+            <span className="font-semibold">{stripLabel}</span>
             <span aria-hidden className="opacity-80">
               {open ? "▲" : "▼"}
             </span>
