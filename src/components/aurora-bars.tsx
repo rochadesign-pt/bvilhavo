@@ -12,11 +12,11 @@ export interface AuroraBarsProps {
   maxHeightRatio?: number;
   /** min bar height as fraction of container — @default 0.16 */
   minHeightRatio?: number;
-  /** undulation speed — @default 0.5 */
+  /** undulation speed — @default 0.7 */
   speed?: number;
-  /** @default 3 */
+  /** @default 4 */
   gap?: number;
-  /** px blur per bar (soft glow) — @default 8 */
+  /** px blur per bar (soft glow) — @default 3 */
   blur?: number;
   /** @default "transparent" */
   background?: string;
@@ -37,18 +37,18 @@ function barHeight(
   const phase2 = (index / total) * Math.PI * 5.3;
   const wave =
     0.5 + 0.25 * Math.sin(time * 1.1 + phase1) + 0.25 * Math.sin(time * 0.7 + phase2);
-  const blended = arch * 0.65 + wave * 0.35;
+  const blended = arch * 0.55 + wave * 0.45;
   return minH + blended * (maxH - minH);
 }
 
 export function AuroraBars({
   barCount = 28,
   colors = ["#ff9a3c", "#ff5a1e", "#e61717", "#7a0f0f", "#00000000"],
-  maxHeightRatio = 0.92,
-  minHeightRatio = 0.16,
-  speed = 0.5,
-  gap = 3,
-  blur = 8,
+  maxHeightRatio = 1.0,
+  minHeightRatio = 0.12,
+  speed = 0.7,
+  gap = 4,
+  blur = 3,
   background = "transparent",
   className = "",
 }: AuroraBarsProps) {
@@ -112,19 +112,20 @@ export function AuroraBars({
                 background: gradient,
                 borderRadius: "9999px 9999px 0 0",
                 filter: blur ? `blur(${blur}px)` : undefined,
-                opacity: 0.8,
+                opacity: 0.92,
               }}
             />
           </div>
         ))}
       </div>
 
-      {/* Vignette — fades the bars into ink at the edges, keeps text legible. */}
+      {/* Vignette — vivid at the bottom-centre, fading to ink upward and at the
+          edges so the footer text above stays legible. */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 85% 80% at 50% 100%, transparent 35%, #171717 100%)",
+            "radial-gradient(ellipse 100% 115% at 50% 125%, transparent 45%, #171717 90%)",
         }}
       />
     </div>
