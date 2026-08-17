@@ -5,13 +5,13 @@ import { getWeather } from "@/lib/weather";
 // and lets Next cache the upstream response for the whole site.
 // Must be a static literal for Next's segment-config analysis (matches
 // WEATHER_REVALIDATE in @/lib/weather).
-export const revalidate = 1800;
+export const revalidate = 900;
 
 export async function GET() {
   const weather = await getWeather();
   return NextResponse.json(weather, {
     headers: {
-      "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600",
+      "Cache-Control": "public, s-maxage=900, stale-while-revalidate=3600",
     },
   });
 }
