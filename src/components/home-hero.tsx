@@ -35,12 +35,18 @@ export function HomeHero({
         className="pointer-events-none absolute inset-x-0 top-0 h-[58%] bg-surface"
       />
       <div className="grain relative isolate flex min-h-[80vh] overflow-hidden rounded-[28px] bg-ink text-white">
-        {/* Photo (subtle Ken Burns on load) */}
+        {/* Photo — mask reveal (clip wipes up) + subtle Ken Burns on load */}
         <motion.div
-          className="absolute inset-0 -z-10"
-          initial={{ scale: reduce ? 1 : 1.08 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: reduce ? 0 : 1.6, ease: EASE }}
+          className="absolute inset-0 -z-10 [will-change:transform,clip-path]"
+          initial={{
+            scale: reduce ? 1 : 1.12,
+            clipPath: reduce ? "inset(0% 0 0 0)" : "inset(100% 0 0 0)",
+          }}
+          animate={{ scale: 1, clipPath: "inset(0% 0 0 0)" }}
+          transition={{
+            scale: { duration: reduce ? 0 : 1.6, ease: EASE },
+            clipPath: { duration: reduce ? 0 : 1.1, ease: [0.16, 1, 0.3, 1] },
+          }}
         >
           <Image
             src={image}
