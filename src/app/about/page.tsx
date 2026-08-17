@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Section } from "@/components/section";
 import { PageHero, SectionHeader } from "@/components/page-hero";
 import { ArrowLink } from "@/components/button";
 import { Reveal } from "@/components/reveal";
@@ -22,17 +23,17 @@ export default function AboutPage() {
       />
 
       {/* Timeline */}
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <SectionHeader
           eyebrow="A nossa história"
           heading="Uma história de coragem que começou em 1893."
           body="Do embrião na Fábrica da Vista-Alegre à corporação moderna de hoje, mais de 130 anos ao serviço de Ílhavo."
         />
         <TimelineHistory items={timeline} />
-      </section>
+      </Section>
 
       {/* Missão / Visão / Valores */}
-      <section className="bg-surface-muted">
+      <Section className="bg-surface-muted">
         <div className="container-page py-20 md:py-24">
           <SectionHeader
             heading="De ontem até hoje. Sempre prontos."
@@ -61,10 +62,10 @@ export default function AboutPage() {
             </Reveal>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Comando */}
-      <section className="container-page py-20 md:py-24">
+      <Section className="container-page py-20 md:py-24">
         <SectionHeader
           eyebrow="Comando"
           heading="Quem está por trás da missão"
@@ -86,7 +87,7 @@ export default function AboutPage() {
         <div className="mt-10">
           <ArrowLink href="/equipa">Conhecer toda a equipa</ArrowLink>
         </div>
-      </section>
+      </Section>
     </>
   );
 }

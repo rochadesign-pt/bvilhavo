@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Section } from "@/components/section";
 import { PageHero, SectionHeader } from "@/components/page-hero";
 import { ArrowLink } from "@/components/button";
 import { Reveal } from "@/components/reveal";
@@ -21,7 +22,7 @@ export default function EquipaPage() {
       />
 
       {/* Comando Operacional */}
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <SectionHeader
           eyebrow="Comando Operacional"
           heading="A linha da frente da decisão."
@@ -40,10 +41,10 @@ export default function EquipaPage() {
             </Reveal>
           ))}
         </div>
-      </section>
+      </Section>
 
       {/* Quadro */}
-      <section className="bg-surface-muted">
+      <Section className="bg-surface-muted">
         <div className="container-page py-20 md:py-24">
           <SectionHeader
             heading="O nosso quadro"
@@ -64,10 +65,10 @@ export default function EquipaPage() {
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Cross-link */}
-      <section className="container-page py-16 text-center">
+      <Section className="container-page py-16 text-center">
         <Reveal>
           <h2 className="text-2xl font-semibold tracking-display">
             E quem governa a Associação?
@@ -84,7 +85,7 @@ export default function EquipaPage() {
             Ver Órgãos Sociais
           </ArrowLink>
         </Reveal>
-      </section>
+      </Section>
     </>
   );
 }

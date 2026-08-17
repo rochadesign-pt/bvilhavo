@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Section } from "@/components/section";
 import { PageHero, SectionHeader } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { documentos } from "@/content/pages";
@@ -18,7 +19,7 @@ export default function TransparenciaPage() {
         subheading="A confiança constrói-se com prestação de contas. Consulte os nossos estatutos, regulamentos, relatórios e orçamentos."
       />
 
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <SectionHeader
           heading="Gerimos com rigor. Reportamos com orgulho."
           body="Desde 1893 que os Bombeiros Voluntários de Ílhavo existem pelo e para o povo ilhavense. Aqui encontra toda a documentação oficial, organizada e sempre atualizada."
@@ -63,7 +64,7 @@ export default function TransparenciaPage() {
           Os ficheiros PDF serão disponibilizados para download assim que
           carregados no gestor de conteúdos.
         </Reveal>
-      </section>
+      </Section>
     </>
   );
 }

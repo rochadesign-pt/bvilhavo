@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Section } from "@/components/section";
 import { PageHero, SectionHeader } from "@/components/page-hero";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { ButtonLink } from "@/components/button";
@@ -26,7 +27,7 @@ export default function VoluntarioPage() {
       />
 
       {/* Passos */}
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <SectionHeader
           eyebrow="Do formulário ao primeiro turno"
           heading="Do interesse à ação. Sem complicações, sem barreiras."
@@ -46,10 +47,10 @@ export default function VoluntarioPage() {
             </Reveal>
           ))}
         </div>
-      </section>
+      </Section>
 
       {/* Requisitos */}
-      <section className="bg-surface-muted">
+      <Section className="bg-surface-muted">
         <div className="container-page grid gap-10 py-20 md:grid-cols-2 md:py-24">
           <SectionHeader
             heading="Quem pode candidatar-se? A resposta curta: provavelmente tu."
@@ -71,10 +72,10 @@ export default function VoluntarioPage() {
             ))}
           </ul>
         </div>
-      </section>
+      </Section>
 
       {/* FAQ */}
-      <section className="container-page py-20 md:py-24">
+      <Section className="container-page py-20 md:py-24">
         <SectionHeader heading="Tens dúvidas? Nós ajudamos-te." />
         <div className="mt-10 max-w-2xl">
           <FaqAccordion items={faqVoluntario} />
@@ -82,7 +83,7 @@ export default function VoluntarioPage() {
         <div className="mt-10">
           <ButtonLink href="/quartel">Quero ser bombeiro</ButtonLink>
         </div>
-      </section>
+      </Section>
     </>
   );
 }

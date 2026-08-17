@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Section } from "@/components/section";
 import { PageHero, SectionHeader } from "@/components/page-hero";
 import { ButtonLink } from "@/components/button";
 import { Reveal } from "@/components/reveal";
@@ -28,7 +29,7 @@ export default function QuartelPage() {
         image="/heroes/quartel.jpg"
       />
 
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <div className="grid gap-12 md:grid-cols-2">
           <div>
             <SectionHeader
@@ -84,7 +85,7 @@ export default function QuartelPage() {
             </ButtonLink>
           </div>
         </div>
-      </section>
+      </Section>
     </>
   );
 }

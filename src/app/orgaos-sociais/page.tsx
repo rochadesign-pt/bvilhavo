@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Section } from "@/components/section";
 import { PageHero, SectionHeader } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { orgaosSociais } from "@/content/pages";
@@ -18,7 +19,7 @@ export default function OrgaosSociaisPage() {
         subheading="Para além do comando operacional, a AHBVI é gerida por órgãos sociais eleitos: a Assembleia Geral, a Direção e o Conselho Fiscal."
       />
 
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <SectionHeader
           heading="Eleitos pela e para a comunidade."
           body="A Associação Humanitária dos Bombeiros Voluntários de Ílhavo é governada por três órgãos sociais eleitos em Assembleia Geral para mandatos de três anos."
@@ -54,7 +55,7 @@ export default function OrgaosSociaisPage() {
             </Reveal>
           ))}
         </div>
-      </section>
+      </Section>
     </>
   );
 }
