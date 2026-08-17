@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
+import { Reveal } from "@/components/reveal";
 import { sanityFetch } from "@/sanity/client";
 import { noticiasQuery } from "@/sanity/queries";
 
@@ -44,15 +45,20 @@ export default async function NoticiasPage() {
 
       <section className="container-page py-24 md:py-32">
         {noticias.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-stroke p-12 text-center text-text-subtle">
+          <Reveal className="rounded-2xl border border-dashed border-stroke p-12 text-center text-text-subtle">
             Ainda não há notícias publicadas. Assim que a equipa publicar a
             primeira notícia no gestor de conteúdos, ela aparece aqui
             automaticamente.
-          </div>
+          </Reveal>
         ) : (
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {noticias.map((n) => (
-              <article key={n._id} className="flex flex-col">
+            {noticias.map((n, i) => (
+              <Reveal
+                as="article"
+                key={n._id}
+                delay={(i % 3) * 0.08}
+                className="flex flex-col"
+              >
                 <Link href={`/noticias/${n.slug}`} className="group">
                   <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-surface-muted">
                     {n.cover && (
@@ -77,7 +83,7 @@ export default async function NoticiasPage() {
                     {n.excerpt}
                   </p>
                 )}
-              </article>
+              </Reveal>
             ))}
           </div>
         )}

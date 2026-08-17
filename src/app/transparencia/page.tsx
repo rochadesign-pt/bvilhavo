@@ -59,10 +59,10 @@ export default function TransparenciaPage() {
           ))}
         </div>
 
-        <p className="mt-10 text-sm text-text-subtlest">
+        <Reveal className="mt-10 text-sm text-text-subtlest">
           Os ficheiros PDF serão disponibilizados para download assim que
           carregados no gestor de conteúdos.
-        </p>
+        </Reveal>
       </section>
     </>
   );

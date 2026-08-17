@@ -68,16 +68,22 @@ export default function EquipaPage() {
 
       {/* Cross-link */}
       <section className="container-page py-16 text-center">
-        <h2 className="text-2xl font-semibold tracking-display">
-          E quem governa a Associação?
-        </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-text-subtle">
-          A Direção, a Assembleia Geral e o Conselho Fiscal garantem a gestão da
-          AHBVI.
-        </p>
-        <ArrowLink href="/orgaos-sociais" className="mt-6">
-          Ver Órgãos Sociais
-        </ArrowLink>
+        <Reveal>
+          <h2 className="text-2xl font-semibold tracking-display">
+            E quem governa a Associação?
+          </h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mx-auto mt-3 max-w-2xl text-text-subtle">
+            A Direção, a Assembleia Geral e o Conselho Fiscal garantem a gestão
+            da AHBVI.
+          </p>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <ArrowLink href="/orgaos-sociais" className="mt-6">
+            Ver Órgãos Sociais
+          </ArrowLink>
+        </Reveal>
       </section>
     </>
   );
