@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Reveal } from "@/components/reveal";
+import { HeroImage } from "@/components/hero-image";
 
 // Interior-page hero: rounded dark card with grain + red glow (or a photo),
 // content aligned to the bottom-left — same language as the homepage hero.
@@ -18,14 +18,7 @@ export function PageHero({
     <section className="px-3 pt-4 md:px-5 md:pt-6">
       <div className="grain relative isolate flex min-h-[48vh] overflow-hidden rounded-[28px] bg-ink text-white">
         {image ? (
-          <Image
-            src={image}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center -z-10"
-          />
+          <HeroImage src={image} />
         ) : (
           <div
             className="absolute inset-0 -z-10"
