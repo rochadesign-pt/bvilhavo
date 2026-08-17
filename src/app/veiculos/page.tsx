@@ -70,11 +70,11 @@ export default async function VeiculosPage() {
           ))}
         </div>
 
-        <p className="mt-16 max-w-2xl text-text-subtle">
+        <Reveal className="mt-16 max-w-2xl text-text-subtle">
           Uma frota de viaturas especializadas, disponível 24 horas por dia. Cada
           veículo representa anos de investimento da comunidade e dos nossos
           parceiros.
-        </p>
+        </Reveal>
       </section>
     </>
   );

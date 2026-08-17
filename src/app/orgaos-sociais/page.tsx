@@ -24,12 +24,14 @@ export default function OrgaosSociaisPage() {
           body="A Associação Humanitária dos Bombeiros Voluntários de Ílhavo é governada por três órgãos sociais eleitos em Assembleia Geral para mandatos de três anos."
         />
 
-        <div
+        <Reveal
           role="note"
+          delay={0.08}
+          y={16}
           className="mt-8 rounded-lg border border-brand/30 bg-brand/5 px-5 py-4 text-sm text-text-subtle"
         >
           Os dados dos mandatos em vigor serão publicados em breve.
-        </div>
+        </Reveal>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {orgaosSociais.map((o, i) => (

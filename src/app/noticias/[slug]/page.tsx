@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { sanityFetch } from "@/sanity/client";
 import { noticiaBySlugQuery } from "@/sanity/queries";
 import { PortableText } from "@/components/portable-text";
+import { Reveal } from "@/components/reveal";
 import type { PortableTextBlock } from "@portabletext/types";
 
 type Noticia = {
@@ -52,24 +53,29 @@ export default async function NoticiaPage({
 
   return (
     <article className="container-page py-16 md:py-24">
-      <Link
-        href="/noticias"
-        className="text-sm font-semibold text-brand hover:text-brand-dark"
-      >
-        ← Todas as notícias
-      </Link>
+      <Reveal y={14}>
+        <Link
+          href="/noticias"
+          className="text-sm font-semibold text-brand hover:text-brand-dark"
+        >
+          ← Todas as notícias
+        </Link>
+      </Reveal>
 
-      <header className="mt-6 max-w-3xl">
+      <Reveal as="section" y={20} delay={0.06} className="mt-6 max-w-3xl">
         <p className="text-xs uppercase tracking-wide text-text-subtlest">
           {formatDate(noticia.date)}
         </p>
         <h1 className="mt-2 text-3xl font-semibold tracking-display leading-tight md:text-4xl">
           {noticia.title}
         </h1>
-      </header>
+      </Reveal>
 
       {noticia.cover && (
-        <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl bg-surface-muted">
+        <Reveal
+          delay={0.12}
+          className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl bg-surface-muted"
+        >
           <Image
             src={noticia.cover}
             alt={noticia.title}
@@ -78,12 +84,12 @@ export default async function NoticiaPage({
             className="object-cover"
             priority
           />
-        </div>
+        </Reveal>
       )}
 
-      <div className="mt-10 max-w-3xl">
+      <Reveal delay={0.18} className="mt-10 max-w-3xl">
         <PortableText value={noticia.body} />
-      </div>
+      </Reveal>
     </article>
   );
 }

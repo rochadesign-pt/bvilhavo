@@ -57,7 +57,7 @@ export default function QuartelPage() {
                   </dd>
                 </Reveal>
               ))}
-              <div>
+              <Reveal delay={0.18} y={16}>
                 <dt className="text-xs uppercase tracking-wide text-text-subtlest">
                   Horário
                 </dt>
@@ -66,7 +66,7 @@ export default function QuartelPage() {
                   <br />
                   {site.hours.office}
                 </dd>
-              </div>
+              </Reveal>
             </dl>
           </div>
 

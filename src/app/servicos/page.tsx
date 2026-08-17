@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero, SectionHeader } from "@/components/page-hero";
 import { ButtonLink } from "@/components/button";
+import { Reveal } from "@/components/reveal";
 import { ServicesInteractive } from "@/components/services-interactive";
 import { sanityFetch } from "@/sanity/client";
 import { servicosQuery } from "@/sanity/queries";
@@ -49,7 +50,10 @@ export default async function ServicosPage() {
             heading="O perigo das queimadas"
             body="A maioria dos incêndios rurais é evitável. A diferença está na prevenção e no bom senso de quem usa o fogo."
           />
-          <div className="mt-8 max-w-2xl space-y-4 leading-relaxed text-text-subtle">
+          <Reveal
+            delay={0.08}
+            className="mt-8 max-w-2xl space-y-4 leading-relaxed text-text-subtle"
+          >
             <p>
               Todos os anos, muitos incêndios rurais têm origem em queimadas e
               queimas mal executadas. Um gesto aparentemente simples — limpar
@@ -67,25 +71,31 @@ export default async function ServicosPage() {
               <span className="font-semibold text-text">112</span>. Quanto mais
               cedo for dado o alerta, mais rápida e eficaz será a resposta.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* CTA */}
       <section className="container-page py-20 text-center md:py-24">
-        <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-display md:text-4xl">
-          Um trabalho diário com impacto real.
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-text-subtle">
-          Mais do que números — cada ação representa vidas protegidas, apoio
-          prestado e confiança reforçada.
-        </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <ButtonLink href="/voluntario">Quero ser bombeiro</ButtonLink>
-          <ButtonLink href="/apoiar" variant="secondary">
-            Quero apoiar
-          </ButtonLink>
-        </div>
+        <Reveal>
+          <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-display md:text-4xl">
+            Um trabalho diário com impacto real.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mx-auto mt-4 max-w-2xl text-text-subtle">
+            Mais do que números — cada ação representa vidas protegidas, apoio
+            prestado e confiança reforçada.
+          </p>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <ButtonLink href="/voluntario">Quero ser bombeiro</ButtonLink>
+            <ButtonLink href="/apoiar" variant="secondary">
+              Quero apoiar
+            </ButtonLink>
+          </div>
+        </Reveal>
       </section>
     </>
   );
