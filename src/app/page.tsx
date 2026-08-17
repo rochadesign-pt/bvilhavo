@@ -12,7 +12,6 @@ import { Reveal } from "@/components/reveal";
 import { StatCounter } from "@/components/stat-counter";
 import { Gallery } from "@/components/gallery";
 import { ContactForm } from "@/components/contact-form";
-import { FinalCta } from "@/components/final-cta";
 
 type Servico = { _id: string; title: string; summary?: string };
 type Noticia = { _id: string; title: string; slug: string; date?: string; excerpt?: string };
@@ -339,8 +338,38 @@ export default async function Home() {
         </div>
       </Section>
 
-      {/* CTA final */}
-      <FinalCta />
+      {/* CTA final — full-bleed, colado ao footer, gradiente vermelho→preto */}
+      <Section className="grain relative isolate overflow-hidden bg-ink text-white">
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              "radial-gradient(120% 85% at 50% 0%, rgba(230,23,23,0.5) 0%, rgba(230,23,23,0) 55%), linear-gradient(180deg, rgba(230,23,23,0.22) 0%, rgba(23,23,23,0) 52%)",
+          }}
+        />
+        <div className="container-page grid gap-6 py-24 text-center md:py-32">
+          <Reveal>
+            <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-display md:text-5xl">
+              Aqui, todos podemos <span className="text-brand">salvar vidas</span>.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="mx-auto max-w-2xl text-white/70">
+              Com o seu tempo. Com um donativo. Com a sua coragem. Há sempre uma
+              forma de ajudar — e juntos garantimos que ninguém fica sem resposta.
+            </p>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <div className="flex flex-wrap justify-center gap-4">
+              <ButtonLink href="/voluntario">Quero ser bombeiro</ButtonLink>
+              <ButtonLink href="/apoiar" variant="onDark">
+                Quero apoiar
+              </ButtonLink>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
     </>
   );
 }
