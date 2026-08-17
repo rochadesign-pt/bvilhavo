@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Section } from "@/components/section";
 import { PageHero, SectionHeader } from "@/components/page-hero";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { Reveal } from "@/components/reveal";
@@ -22,7 +23,7 @@ export default function ApoiarPage() {
       />
 
       {/* Formas de apoio */}
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <SectionHeader
           heading="Uma pequena contribuição pode ter um impacto enorme."
           body="Há várias formas de fazer parte desta missão. Seja com um contributo financeiro ou com materiais úteis, está a apoiar quem nunca vira as costas."
@@ -52,10 +53,10 @@ export default function ApoiarPage() {
           </a>{" "}
           ou {site.phones.office}. O IBAN para donativos será publicado em breve.
         </p>
-      </section>
+      </Section>
 
       {/* Em que contribui */}
-      <section className="bg-surface-muted">
+      <Section className="bg-surface-muted">
         <div className="container-page py-20 md:py-24">
           <SectionHeader
             heading="Em que contribui? A melhorar o nosso serviço."
@@ -73,15 +74,15 @@ export default function ApoiarPage() {
             ))}
           </ul>
         </div>
-      </section>
+      </Section>
 
       {/* FAQ */}
-      <section className="container-page py-20 md:py-24">
+      <Section className="container-page py-20 md:py-24">
         <SectionHeader heading="Tens dúvidas? Nós ajudamos-te." />
         <div className="mt-10 max-w-2xl">
           <FaqAccordion items={faqApoiar} />
         </div>
-      </section>
+      </Section>
     </>
   );
 }

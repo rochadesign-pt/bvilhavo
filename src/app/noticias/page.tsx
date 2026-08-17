@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Section } from "@/components/section";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
@@ -43,7 +44,7 @@ export default async function NoticiasPage() {
         subheading="Acompanhe as nossas intervenções, novidades, equipamentos e iniciativas. Publicamos relatórios com total transparência sobre a nossa atividade operacional."
       />
 
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         {noticias.length === 0 ? (
           <Reveal className="rounded-2xl border border-dashed border-stroke p-12 text-center text-text-subtle">
             Ainda não há notícias publicadas. Assim que a equipa publicar a
@@ -87,7 +88,7 @@ export default async function NoticiasPage() {
             ))}
           </div>
         )}
-      </section>
+      </Section>
     </>
   );
 }

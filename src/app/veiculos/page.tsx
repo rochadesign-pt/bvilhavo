@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Section } from "@/components/section";
 import { PageHero, SectionHeader } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { sanityFetch } from "@/sanity/client";
@@ -49,7 +50,7 @@ export default async function VeiculosPage() {
         image="/heroes/veiculos.jpg"
       />
 
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <div className="space-y-16">
           {groups.map((g) => (
             <div key={g.category}>
@@ -75,7 +76,7 @@ export default async function VeiculosPage() {
           veículo representa anos de investimento da comunidade e dos nossos
           parceiros.
         </Reveal>
-      </section>
+      </Section>
     </>
   );
 }

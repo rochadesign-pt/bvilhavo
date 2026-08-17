@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Section } from "@/components/section";
 import Image from "next/image";
 import { sanityFetch } from "@/sanity/client";
 import { servicosQuery, noticiasQuery } from "@/sanity/queries";
@@ -38,7 +39,7 @@ export default async function Home() {
       />
 
       {/* História + stats — the red frame "flows" into a full brand-red block */}
-      <section className="bg-brand text-on-brand">
+      <Section className="bg-brand text-on-brand">
         <div className="container-page py-16 text-center md:py-20">
           <Reveal>
             <h2 className="text-display mx-auto max-w-2xl text-3xl md:text-5xl">
@@ -58,10 +59,10 @@ export default async function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Duas formas de apoiar */}
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <SectionHeader
           eyebrow="Faz parte"
           heading="Duas formas de apoiar. Uma missão que nunca pára."
@@ -91,10 +92,10 @@ export default async function Home() {
             </Reveal>
           ))}
         </div>
-      </section>
+      </Section>
 
       {/* Momentos — galeria em ação */}
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <SectionHeader
           eyebrow="Em ação"
           heading="Momentos que definem quem somos."
@@ -110,10 +111,10 @@ export default async function Home() {
             ]}
           />
         </div>
-      </section>
+      </Section>
 
       {/* História teaser */}
-      <section className="bg-surface-muted">
+      <Section className="bg-surface-muted">
         <div className="container-page grid items-center gap-12 py-24 md:grid-cols-2 md:py-32">
           <div>
             <SectionHeader
@@ -147,10 +148,10 @@ export default async function Home() {
             />
           </Reveal>
         </div>
-      </section>
+      </Section>
 
       {/* Parceiros institucionais */}
-      <section className="container-page py-16 md:py-20">
+      <Section className="container-page py-16 md:py-20">
         <Reveal>
           <p className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-text-subtlest">
             Em parceria com
@@ -171,10 +172,10 @@ export default async function Home() {
             ))}
           </div>
         </Reveal>
-      </section>
+      </Section>
 
       {/* Serviços */}
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <SectionHeader
           eyebrow="O que fazemos"
           heading="Muito mais do que combater incêndios."
@@ -201,10 +202,10 @@ export default async function Home() {
             <ArrowLink href="/servicos">Ver todos os serviços</ArrowLink>
           </div>
         </Reveal>
-      </section>
+      </Section>
 
       {/* Bloco de impacto */}
-      <section className="relative isolate overflow-hidden">
+      <Section className="relative isolate overflow-hidden">
         <Image
           src="/heroes/impacto.jpg"
           alt=""
@@ -246,10 +247,10 @@ export default async function Home() {
             </a>
           </Reveal>
         </div>
-      </section>
+      </Section>
 
       {/* Notícias teaser */}
-      <section className="bg-surface-muted">
+      <Section className="bg-surface-muted">
         <div className="container-page py-24 md:py-32">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <SectionHeader
@@ -291,10 +292,10 @@ export default async function Home() {
             </div>
           )}
         </div>
-      </section>
+      </Section>
 
       {/* Fale connosco — contactos + formulário */}
-      <section className="bg-surface-muted">
+      <Section className="bg-surface-muted">
         <div className="container-page grid gap-12 py-24 md:grid-cols-2 md:py-32">
           <div>
             <SectionHeader
@@ -335,10 +336,10 @@ export default async function Home() {
             <ContactForm />
           </Reveal>
         </div>
-      </section>
+      </Section>
 
       {/* CTA final */}
-      <section className="grain relative overflow-hidden bg-ink text-white">
+      <Section className="grain relative overflow-hidden bg-ink text-white">
         <div
           className="absolute inset-0 -z-10"
           style={{
@@ -367,7 +368,7 @@ export default async function Home() {
             </div>
           </Reveal>
         </div>
-      </section>
+      </Section>
     </>
   );
 }

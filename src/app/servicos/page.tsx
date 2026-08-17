@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Section } from "@/components/section";
 import { PageHero, SectionHeader } from "@/components/page-hero";
 import { ButtonLink } from "@/components/button";
 import { Reveal } from "@/components/reveal";
@@ -32,7 +33,7 @@ export default async function ServicosPage() {
         image="/heroes/servicos.jpg"
       />
 
-      <section className="container-page py-24 md:py-32">
+      <Section className="container-page py-24 md:py-32">
         <SectionHeader
           heading="Muito mais do que combater incêndios."
           body="Respondemos a mais de 1.400 ocorrências por mês, desde incêndios e emergências médicas a acidentes rodoviários e riscos industriais."
@@ -40,10 +41,10 @@ export default async function ServicosPage() {
         <div className="mt-14">
           <ServicesInteractive services={servicos} />
         </div>
-      </section>
+      </Section>
 
       {/* Prevenção */}
-      <section className="bg-surface-muted">
+      <Section className="bg-surface-muted">
         <div className="container-page py-20 md:py-24">
           <SectionHeader
             eyebrow="Prevenção e sensibilização"
@@ -73,10 +74,10 @@ export default async function ServicosPage() {
             </p>
           </Reveal>
         </div>
-      </section>
+      </Section>
 
       {/* CTA */}
-      <section className="container-page py-20 text-center md:py-24">
+      <Section className="container-page py-20 text-center md:py-24">
         <Reveal>
           <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-display md:text-4xl">
             Um trabalho diário com impacto real.
@@ -96,7 +97,7 @@ export default async function ServicosPage() {
             </ButtonLink>
           </div>
         </Reveal>
-      </section>
+      </Section>
     </>
   );
 }

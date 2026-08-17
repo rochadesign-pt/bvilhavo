@@ -1,35 +1,30 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { site } from "@/content/site";
-import type { Weather, WeatherWarning } from "@/lib/weather";
+import type { Weather } from "@/lib/weather";
+import { WeatherPanel } from "@/components/weather-panel";
 
-// Warning-level → PT label + colours (kept distinct from the brand-red bar).
-const LEVEL_STYLE: Record<
-  WeatherWarning["level"],
-  { bar: string; label: string }
-> = {
-  yellow: { bar: "bg-amber-300 text-amber-950", label: "Amarelo" },
-  orange: { bar: "bg-orange-500 text-white", label: "Laranja" },
-  red: { bar: "bg-red-700 text-white", label: "Vermelho" },
+const EASE = [0.25, 1, 0.5, 1] as const;
+
+// Risk-level → small dot colour (desktop chip) + mobile strip styling.
+const DOT = ["bg-emerald-400", "bg-amber-300", "bg-orange-400", "bg-red-400"];
+const STRIP: Record<number, string> = {
+  2: "bg-orange-500 text-white",
+  3: "bg-red-600 text-white",
 };
 
-// "2026-08-17T18:00:00" → "17/08 18h00" (uses IPMA's local wall-clock as-is,
-// so it is not shifted by the server timezone).
-function formatEnd(iso: string): string {
-  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
-  if (!m) return "";
-  const [, , mo, d, h, min] = m;
-  return `${d}/${mo} ${h}h${min}`;
-}
-
-// Full-width red bar at the very top (matches the Framer design). Left:
-// emergency call-out. Right (desktop): a live temperature chip from IPMA.
-// When Aveiro is under an active weather warning, a prominent strip is shown
-// below the bar on every breakpoint so the alert reaches everyone.
+// Full-width red bar at the very top. Left: emergency call-out (centred on
+// mobile). Right (desktop): a live weather chip from OpenWeather that expands,
+// on hover/focus, into the fire-risk panel. On mobile — where the chip is
+// hidden to keep the call-out centred — an active fire-risk (Elevado+) surfaces
+// as a tappable strip below the bar, so the alert still reaches touch users.
 export function EmergencyBar() {
   const tel = `tel:+351${site.phones.emergency.replace(/\s/g, "")}`;
+  const reduce = useReducedMotion();
   const [weather, setWeather] = useState<Weather | null>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -44,8 +39,16 @@ export function EmergencyBar() {
     };
   }, []);
 
-  const warning = weather?.warnings[0];
-  const style = warning ? LEVEL_STYLE[warning.level] : null;
+  const hasData = weather?.temp != null;
+  const risk = weather?.risk ?? null;
+  const showStrip = !!risk && risk.level >= 2;
+
+  const panelMotion = {
+    initial: { opacity: 0, y: reduce ? 0 : -6, scale: reduce ? 1 : 0.98 },
+    animate: { opacity: 1, y: 0, scale: 1 },
+    exit: { opacity: 0, y: reduce ? 0 : -6, scale: reduce ? 1 : 0.98 },
+    transition: { duration: reduce ? 0.12 : 0.2, ease: EASE },
+  };
 
   return (
     <>
@@ -57,35 +60,84 @@ export function EmergencyBar() {
               Ligue agora — {site.phones.emergency}
             </a>
           </p>
-          <div className="hidden items-center gap-2 text-on-brand/90 sm:flex">
-            <span className="font-medium">Ílhavo</span>
-            {weather?.tMax != null && (
-              <>
+
+          {/* Desktop weather chip + hover dropdown */}
+          <div
+            className="relative hidden sm:block"
+            onMouseEnter={() => hasData && setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
+          >
+            {hasData ? (
+              <button
+                type="button"
+                aria-expanded={open}
+                aria-label="Ver meteorologia e risco de incêndio em Ílhavo"
+                onClick={() => setOpen((v) => !v)}
+                onFocus={() => setOpen(true)}
+                className="flex items-center gap-2 rounded-full px-1 text-on-brand/90 outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+              >
+                <span className="font-medium">Ílhavo</span>
                 <span aria-hidden>·</span>
-                <span aria-hidden>{weather.icon}</span>
-                <span>
-                  {Math.round(weather.tMax)}°C
-                  <span className="sr-only"> temperatura máxima em Ílhavo</span>
-                </span>
-              </>
+                <span aria-hidden>🌡</span>
+                <span>{weather!.temp}°C</span>
+                {risk && risk.level >= 1 && (
+                  <span
+                    aria-hidden
+                    className={`ml-0.5 h-2 w-2 rounded-full ${DOT[risk.level]}`}
+                  />
+                )}
+              </button>
+            ) : (
+              <span className="font-medium text-on-brand/90">Ílhavo</span>
             )}
+
+            <AnimatePresence>
+              {open && hasData && weather && (
+                <motion.div
+                  {...panelMotion}
+                  role="dialog"
+                  aria-label="Meteorologia e risco de incêndio"
+                  className="absolute right-0 top-full z-50 mt-2"
+                  onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
+                >
+                  <WeatherPanel weather={weather} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
 
-      {warning && style && (
-        <div className={style.bar} role="alert">
-          <div className="container-wide flex flex-wrap items-center justify-center gap-x-2 gap-y-1 py-2 text-center text-sm font-medium sm:justify-start">
+      {/* Mobile fire-risk strip (Elevado/Extremo) — tap to expand */}
+      {showStrip && risk && (
+        <div className={`sm:hidden ${STRIP[risk.level]}`}>
+          <button
+            type="button"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="container-wide flex w-full items-center justify-center gap-2 py-2 text-center text-sm font-medium"
+          >
             <span aria-hidden>⚠</span>
-            <span className="font-semibold">
-              Aviso {style.label} · {warning.type}
+            <span className="font-semibold">Risco de incêndio {risk.label}</span>
+            <span aria-hidden className="opacity-80">
+              {open ? "▲" : "▼"}
             </span>
-            {warning.end && (
-              <span className="opacity-90">
-                (em vigor até {formatEnd(warning.end)})
-              </span>
+          </button>
+          <AnimatePresence initial={false}>
+            {open && weather && (
+              <motion.div
+                initial={{ opacity: 0, height: reduce ? "auto" : 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: reduce ? "auto" : 0 }}
+                transition={{ duration: reduce ? 0.12 : 0.25, ease: EASE }}
+                className="overflow-hidden"
+              >
+                <div className="container-wide px-4 pb-3">
+                  <WeatherPanel weather={weather} />
+                </div>
+              </motion.div>
             )}
-          </div>
+          </AnimatePresence>
         </div>
       )}
     </>
