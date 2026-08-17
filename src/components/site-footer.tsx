@@ -1,10 +1,16 @@
 import Link from "next/link";
 import { mainNav, ctaSecondary } from "@/lib/nav";
 import { site } from "@/content/site";
+import { AuroraBars } from "@/components/aurora-bars";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-ink text-white">
+    <footer className="relative isolate overflow-hidden bg-ink text-white">
+      {/* Aurora de fogo a subir no fundo do footer */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-64">
+        <AuroraBars />
+      </div>
+
       <div className="container-page grid gap-10 py-14 md:grid-cols-[1.5fr_1fr_1.2fr]">
         <div className="max-w-sm">
           <div className="flex items-center gap-3">
