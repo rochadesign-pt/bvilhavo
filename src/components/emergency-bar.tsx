@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { site } from "@/content/site";
 import type { Weather } from "@/lib/weather";
 import { WeatherPanel } from "@/components/weather-panel";
-import { ThermometerIcon, WarningIcon } from "@/components/weather-icons";
+import { ThermometerIcon, WarningIcon, FlameIcon } from "@/components/weather-icons";
 
 const EASE = [0.25, 1, 0.5, 1] as const;
 
@@ -59,8 +59,12 @@ export function EmergencyBar() {
   const hasData = weather?.temp != null;
   const risk = weather?.risk ?? null;
   const critical = !!weather?.criticalPeriod;
+  const official = weather?.official ?? null;
   const highRisk = !!risk && risk.level >= 2;
   const pulse = !reduce && highRisk;
+  // Show the widget whenever there's anything worth surfacing — so it appears
+  // even before OpenWeather returns data (e.g. a brand-new key still activating).
+  const hasWidget = hasData || critical || !!official;
 
   // Mobile strip: urgent when high risk, otherwise a calm ban reminder.
   const stripVariant =
@@ -95,10 +99,10 @@ export function EmergencyBar() {
           {/* Desktop weather chip + hover dropdown */}
           <div
             className="relative hidden sm:block"
-            onMouseEnter={() => hasData && setOpen(true)}
+            onMouseEnter={() => hasWidget && setOpen(true)}
             onMouseLeave={() => setOpen(false)}
           >
-            {hasData ? (
+            {hasWidget ? (
               <button
                 type="button"
                 aria-expanded={open}
@@ -109,16 +113,27 @@ export function EmergencyBar() {
               >
                 <span className="font-medium">Ílhavo</span>
                 <span aria-hidden>·</span>
-                <ThermometerIcon className="h-3.5 w-3.5" />
-                <span>{weather!.temp}°C</span>
-                {risk && <RiskDot level={risk.level} pulse={pulse} />}
+                {hasData ? (
+                  <>
+                    <ThermometerIcon className="h-3.5 w-3.5" />
+                    <span>{weather!.temp}°C</span>
+                  </>
+                ) : (
+                  <>
+                    <FlameIcon className="h-3.5 w-3.5" />
+                    <span>Risco de incêndio</span>
+                  </>
+                )}
+                {(risk || critical) && (
+                  <RiskDot level={risk ? risk.level : 1} pulse={pulse} />
+                )}
               </button>
             ) : (
               <span className="font-medium text-on-brand/90">Ílhavo</span>
             )}
 
             <AnimatePresence>
-              {open && weather && (hasData || showStrip) && (
+              {open && weather && hasWidget && (
                 <motion.div
                   {...panelMotion}
                   role="dialog"
