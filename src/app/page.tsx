@@ -12,6 +12,7 @@ import { Reveal } from "@/components/reveal";
 import { StatCounter } from "@/components/stat-counter";
 import { Gallery } from "@/components/gallery";
 import { ContactForm } from "@/components/contact-form";
+import { FinalCta } from "@/components/final-cta";
 
 type Servico = { _id: string; title: string; summary?: string };
 type Noticia = { _id: string; title: string; slug: string; date?: string; excerpt?: string };
@@ -339,36 +340,7 @@ export default async function Home() {
       </Section>
 
       {/* CTA final */}
-      <Section className="grain relative overflow-hidden bg-ink text-white">
-        <div
-          className="absolute inset-0 -z-10"
-          style={{
-            background:
-              "radial-gradient(90% 120% at 50% 120%, rgba(230,23,23,0.35) 0%, rgba(23,23,23,0) 60%)",
-          }}
-        />
-        <div className="container-page grid gap-6 py-24 text-center md:py-28">
-          <Reveal>
-            <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-display md:text-4xl">
-              Aqui, todos podemos salvar vidas.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <p className="mx-auto max-w-2xl text-white/70">
-              Com o seu tempo. Com um donativo. Com a sua coragem. Há sempre uma
-              forma de ajudar — e juntos garantimos que ninguém fica sem resposta.
-            </p>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <div className="flex flex-wrap justify-center gap-4">
-              <ButtonLink href="/voluntario">Quero ser bombeiro</ButtonLink>
-              <ButtonLink href="/apoiar" variant="onDark">
-                Quero apoiar
-              </ButtonLink>
-            </div>
-          </Reveal>
-        </div>
-      </Section>
+      <FinalCta />
     </>
   );
 }
