@@ -26,12 +26,12 @@ export default function AboutPage() {
 
       {/* Timeline */}
       <Section className="container-page py-24 md:py-32">
-        <SectionHeader
+        <TimelineHistory
           eyebrow="A nossa história"
           heading="Uma história de coragem que começou em 1893."
           body="Do embrião na Fábrica da Vista-Alegre à corporação moderna de hoje, mais de 130 anos ao serviço de Ílhavo."
+          items={timeline}
         />
-        <TimelineHistory items={timeline} />
       </Section>
 
       {/* Missão / Visão / Valores */}
