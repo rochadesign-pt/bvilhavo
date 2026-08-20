@@ -10,7 +10,7 @@ import { HomeHero } from "@/components/home-hero";
 import { ButtonLink, ArrowLink } from "@/components/button";
 import { Reveal } from "@/components/reveal";
 import { StatCounter } from "@/components/stat-counter";
-import { Gallery } from "@/components/gallery";
+import { SpotlightGallery } from "@/components/spotlight-gallery";
 import { ContactForm } from "@/components/contact-form";
 
 type Servico = { _id: string; title: string; summary?: string };
@@ -102,12 +102,14 @@ export default async function Home() {
           body="Cada fotografia conta uma história de coragem, sacrifício e compromisso com Ílhavo."
         />
         <div className="mt-14">
-          <Gallery
+          <SpotlightGallery
             images={[
-              { src: "/gallery/acao-1.jpg", alt: "Bombeiros em combate a incêndio", wide: true },
-              { src: "/gallery/acao-4.jpg", alt: "Operacional dos Bombeiros de Ílhavo" },
+              { src: "/gallery/acao-1.jpg", alt: "Bombeiros em combate a incêndio" },
+              { src: "/gallery/acao-2.jpg", alt: "Ação no terreno" },
               { src: "/gallery/acao-3.jpg", alt: "Equipa em intervenção" },
-              { src: "/gallery/acao-2.jpg", alt: "Ação no terreno", wide: true },
+              { src: "/gallery/acao-4.jpg", alt: "Operacional dos Bombeiros de Ílhavo" },
+              { src: "/heroes/impacto.jpg", alt: "Intervenção da corporação" },
+              { src: "/heroes/veiculos.jpg", alt: "Viaturas ao serviço de Ílhavo" },
             ]}
           />
         </div>
