@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/section";
-import { PageHero, SectionHeader } from "@/components/page-hero";
+import { SectionHeader } from "@/components/page-hero";
+import { HeroSplit } from "@/components/heroes";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { ButtonLink } from "@/components/button";
 import { Reveal } from "@/components/reveal";
@@ -19,11 +20,15 @@ export const metadata: Metadata = {
 export default function VoluntarioPage() {
   return (
     <>
-      <PageHero
+      <HeroSplit
         eyebrow="Voluntariado"
         heading="Não pedimos experiência. Pedimos coragem, compromisso e vontade de fazer algo que realmente importa."
         subheading="Há mais de 130 anos que ilhavenses comuns fazem coisas extraordinárias. Junta-te a eles. A formação é nossa, a missão é tua."
         image="/heroes/voluntario.jpg"
+        ctas={[
+          { label: "Quero inscrever-me", href: "/quartel" },
+          { label: "Como apoiar", href: "/apoiar", variant: "secondary" },
+        ]}
       />
 
       {/* Passos */}

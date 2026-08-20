@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/section";
-import { PageHero, SectionHeader } from "@/components/page-hero";
+import { SectionHeader } from "@/components/page-hero";
+import { HeroEditorial } from "@/components/heroes";
 import { Reveal } from "@/components/reveal";
 import { orgaosSociais } from "@/content/pages";
 
@@ -13,10 +14,11 @@ export const metadata: Metadata = {
 export default function OrgaosSociaisPage() {
   return (
     <>
-      <PageHero
+      <HeroEditorial
         eyebrow="Órgãos Sociais"
         heading="A estrutura que governa a Associação."
         subheading="Para além do comando operacional, a AHBVI é gerida por órgãos sociais eleitos: a Assembleia Geral, a Direção e o Conselho Fiscal."
+        meta={["Assembleia Geral", "Direção", "Conselho Fiscal"]}
       />
 
       <Section className="container-page py-24 md:py-32">

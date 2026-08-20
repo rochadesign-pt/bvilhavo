@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/section";
-import { PageHero, SectionHeader } from "@/components/page-hero";
+import { SectionHeader } from "@/components/page-hero";
+import { HeroEditorial } from "@/components/heroes";
 import { Reveal } from "@/components/reveal";
 import { documentos } from "@/content/pages";
 
@@ -13,10 +14,11 @@ export const metadata: Metadata = {
 export default function TransparenciaPage() {
   return (
     <>
-      <PageHero
+      <HeroEditorial
         eyebrow="Transparência"
         heading="Contas claras com a comunidade."
         subheading="A confiança constrói-se com prestação de contas. Consulte os nossos estatutos, regulamentos, relatórios e orçamentos."
+        meta={["Estatutos & regulamentos", "Relatórios & contas", "Sempre atualizado"]}
       />
 
       <Section className="container-page py-24 md:py-32">

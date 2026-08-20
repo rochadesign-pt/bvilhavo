@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Section } from "@/components/section";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
+import { HeroNews } from "@/components/heroes";
 import { Reveal } from "@/components/reveal";
 import { sanityFetch } from "@/sanity/client";
 import { noticiasQuery } from "@/sanity/queries";
@@ -36,24 +36,29 @@ export default async function NoticiasPage() {
     tags: ["noticia"],
   });
 
+  const [featured, ...rest] = noticias;
+
   return (
     <>
-      <PageHero
+      <HeroNews
         eyebrow="Notícias"
         heading="Em ação com a comunidade."
-        subheading="Acompanhe as nossas intervenções, novidades, equipamentos e iniciativas. Publicamos relatórios com total transparência sobre a nossa atividade operacional."
+        subheading="Acompanhe as nossas intervenções, novidades, equipamentos e iniciativas, com total transparência sobre a nossa atividade operacional."
+        featured={featured}
       />
 
-      <Section className="container-page py-24 md:py-32">
-        {noticias.length === 0 ? (
+      {noticias.length === 0 ? (
+        <Section className="container-page py-24 md:py-32">
           <Reveal className="rounded-2xl border border-dashed border-stroke p-12 text-center text-text-subtle">
             Ainda não há notícias publicadas. Assim que a equipa publicar a
             primeira notícia no gestor de conteúdos, ela aparece aqui
             automaticamente.
           </Reveal>
-        ) : (
+        </Section>
+      ) : rest.length > 0 ? (
+        <Section className="container-page py-20 md:py-28">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {noticias.map((n, i) => (
+            {rest.map((n, i) => (
               <Reveal
                 as="article"
                 key={n._id}
@@ -87,8 +92,8 @@ export default async function NoticiasPage() {
               </Reveal>
             ))}
           </div>
-        )}
-      </Section>
+        </Section>
+      ) : null}
     </>
   );
 }

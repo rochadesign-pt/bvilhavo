@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/section";
-import { PageHero, SectionHeader } from "@/components/page-hero";
+import { SectionHeader } from "@/components/page-hero";
+import { HeroSplit } from "@/components/heroes";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { Reveal } from "@/components/reveal";
 import { apoios, contribui, faqApoiar } from "@/content/pages";
@@ -15,11 +16,15 @@ export const metadata: Metadata = {
 export default function ApoiarPage() {
   return (
     <>
-      <PageHero
+      <HeroSplit
         eyebrow="Apoiar"
         heading="Quando precisar de nós, estaremos lá. Para estarmos lá, precisamos de si."
         subheading="Os nossos bombeiros dão o seu tempo gratuitamente. O equipamento que os protege — e que permite proteger Ílhavo — tem um custo real. O seu contributo faz a diferença."
         image="/heroes/apoiar.jpg"
+        ctas={[
+          { label: "Falar connosco", href: "/quartel" },
+          { label: "Ser voluntário", href: "/voluntario", variant: "secondary" },
+        ]}
       />
 
       {/* Formas de apoio */}

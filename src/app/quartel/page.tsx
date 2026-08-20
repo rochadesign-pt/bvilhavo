@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/section";
-import { PageHero, SectionHeader } from "@/components/page-hero";
+import { SectionHeader } from "@/components/page-hero";
+import { HeroImmersive } from "@/components/heroes";
 import { ButtonLink } from "@/components/button";
 import { Reveal } from "@/components/reveal";
 import { site } from "@/content/site";
@@ -22,7 +23,7 @@ export default function QuartelPage() {
 
   return (
     <>
-      <PageHero
+      <HeroImmersive
         eyebrow="Quartel"
         heading="Onde a ajuda começa."
         subheading="Estamos no coração de Ílhavo, prontos a responder 24 horas por dia, 365 dias por ano. Conheça a nossa casa e como falar connosco."
