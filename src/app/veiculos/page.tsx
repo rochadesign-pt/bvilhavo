@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/section";
-import { PageHero, SectionHeader } from "@/components/page-hero";
+import { SectionHeader } from "@/components/page-hero";
+import { HeroImmersive } from "@/components/heroes";
 import { Reveal } from "@/components/reveal";
 import { sanityFetch } from "@/sanity/client";
 import { veiculosQuery } from "@/sanity/queries";
@@ -43,7 +44,7 @@ export default async function VeiculosPage() {
 
   return (
     <>
-      <PageHero
+      <HeroImmersive
         eyebrow="Frota"
         heading="A nossa frota ao serviço de Ílhavo."
         subheading="Dezenas de viaturas de combate a incêndios, ambulâncias e meios náuticos, sempre prontas a responder em todo o concelho."

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/section";
-import { PageHero, SectionHeader } from "@/components/page-hero";
+import { SectionHeader } from "@/components/page-hero";
+import { HeroEditorial } from "@/components/heroes";
 import { ArrowLink } from "@/components/button";
 import { Reveal } from "@/components/reveal";
 import { Avatar } from "@/components/avatar";
@@ -15,10 +16,11 @@ export const metadata: Metadata = {
 export default function EquipaPage() {
   return (
     <>
-      <PageHero
+      <HeroEditorial
         eyebrow="Equipa"
         heading="A equipa que lidera a missão."
         subheading="Por trás de cada resposta está uma estrutura de comando experiente e centenas de voluntários dedicados. Conheça quem lidera os Bombeiros Voluntários de Ílhavo."
+        meta={["Comando operacional", "Centenas de voluntários", "24 horas por dia"]}
       />
 
       {/* Comando Operacional */}

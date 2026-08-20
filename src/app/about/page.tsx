@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/section";
-import { PageHero, SectionHeader } from "@/components/page-hero";
+import { SectionHeader } from "@/components/page-hero";
+import { HeroEditorial } from "@/components/heroes";
 import { ArrowLink } from "@/components/button";
 import { Reveal } from "@/components/reveal";
 import { Avatar } from "@/components/avatar";
@@ -16,10 +17,11 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHero
+      <HeroEditorial
         eyebrow="Quem somos"
         heading="Uma história com mais de um século. Uma missão que não tem fim."
         subheading="Desde 1893 que os Bombeiros Voluntários de Ílhavo servem a comunidade com coragem, dedicação e espírito de missão. Esta é a nossa identidade. Este é o nosso compromisso."
+        meta={["Fundada em 1893", "Ílhavo · Aveiro", "Associação de utilidade pública"]}
       />
 
       {/* Timeline */}

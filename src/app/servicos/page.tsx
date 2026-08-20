@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/section";
-import { PageHero, SectionHeader } from "@/components/page-hero";
+import { SectionHeader } from "@/components/page-hero";
+import { HeroImmersive } from "@/components/heroes";
 import { ButtonLink } from "@/components/button";
 import { Reveal } from "@/components/reveal";
 import { ServicesInteractive } from "@/components/services-interactive";
@@ -26,7 +27,7 @@ export default async function ServicosPage() {
 
   return (
     <>
-      <PageHero
+      <HeroImmersive
         eyebrow="Serviços"
         heading="Sempre prontos. Sempre em missão."
         subheading="Do combate a incêndios ao apoio à comunidade, a nossa ação vai muito além da emergência. Conhece as áreas onde fazemos a diferença, todos os dias."
